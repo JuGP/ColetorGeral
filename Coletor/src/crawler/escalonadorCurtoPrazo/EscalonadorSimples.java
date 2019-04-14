@@ -26,10 +26,9 @@ public class EscalonadorSimples implements Escalonador {
         if (!finalizouColeta()) {
             URLAddress url = null;
             Servidor s = null;
-            
-        //System.out.println("---------------------------------------------------------------------------------------------------------");
-        //System.out.println("COLETANDO PAGINA:");
-        
+
+            //System.out.println("---------------------------------------------------------------------------------------------------------");
+            //System.out.println("COLETANDO PAGINA:");
             do {
                 for (Servidor key : hashServer.keySet()) {
                     LinkedList<URLAddress> value = hashServer.get(key);
@@ -61,7 +60,7 @@ public class EscalonadorSimples implements Escalonador {
                 }
             } while (s == null);
         }
-        
+
         return null;
     }
 
@@ -71,28 +70,28 @@ public class EscalonadorSimples implements Escalonador {
         Servidor servidor = new Servidor(urlAdd.getDomain());
         //System.out.println("---------------------------------------------------------------------------------------------------------");
         //System.out.println("ADICIONANDO PAGINA:");
-        if(descobertos.contains(urlAdd.toString())){
+        if (descobertos.contains(urlAdd.toString())) {
             //System.out.println("\tURLS "+urlAdd.toString()+" JÁ COLETADA");
             //exibe();
             return false;
         }
-        if (urlAdd.getDepth() >= PROFUNDIDADE){ 
+        if (urlAdd.getDepth() >= PROFUNDIDADE) {
             //System.out.println("\tPRODUNFUNDIDADE DA URL "+urlAdd.toString()+" JÁ ATINGIDA");
-             //exibe();
+            //exibe();
             return false;
         }
         if (hashServer.containsKey(servidor)) {
             aux = hashServer.get(servidor);
             descobertos.add(urlAdd.toString());
             aux.add(urlAdd);
-        }else{
+        } else {
             descobertos.add(urlAdd.toString());
             //descobertos.add(servidor.getNome());
             aux.add(urlAdd);
             hashServer.put(servidor, aux);
         }
         //System.out.println("\tURL "+urlAdd.toString()+" ADICIONADA");
-         //exibe();
+        //exibe();
         return true;
     }
 
@@ -121,25 +120,25 @@ public class EscalonadorSimples implements Escalonador {
     }
 
     @Override
-    public void countFetchedPage() {
+    public synchronized void countFetchedPage() {
         paginas++;
 
     }
-    
+
     public void exibe() {
         System.out.println("---------------------------------------------------------------------------------------------------------");
-        System.out.println("NUMERO DE PAGINAS COLETADAS: "+paginas);
+        System.out.println("NUMERO DE PAGINAS COLETADAS: " + paginas);
         System.out.println("FILA DE PAGINAS NÃO COLETADAS:");
         for (Servidor s : hashServer.keySet()) {
-            System.out.println("\tServidor "+s.getNome());
+            System.out.println("\tServidor " + s.getNome());
             for (URLAddress url : hashServer.get(s)) {
-                System.out.println("\t\tURL: "+url.toString()+" PRODUNDIDADE: "+url.getDepth());
+                System.out.println("\t\tURL: " + url.toString() + " PRODUNDIDADE: " + url.getDepth());
             }
         }
         System.out.println("FILA DE PAGINAS DESCOBERTAS:");
         for (String url : descobertos) {
-               System.out.println("\t\tURL: "+url.toString());
-          }
+            System.out.println("\t\tURL: " + url.toString());
+        }
     }
 
 }

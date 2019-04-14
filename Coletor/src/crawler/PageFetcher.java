@@ -18,6 +18,7 @@ import org.htmlcleaner.TagNodeVisitor;
 import org.htmlcleaner.Utils;
 
 import org.htmlcleaner.HtmlNode;
+
 public class PageFetcher implements Runnable {
 
     private final EscalonadorSimples e;
@@ -43,15 +44,15 @@ public class PageFetcher implements Runnable {
                         //System.out.println(href);
                         int depthFilho = 1;
                         if (href != null) {
-                            
+
                             if (href.startsWith("/")) {
                                 href = dom + href;
                                 depthFilho = profundidade + 1;
-                                
+
                             }
 
                             //if (!(href.startsWith("javascript:") || href.equals("") || href.equals(dom + "/") || href.startsWith("#"))) {
-                            if(href.startsWith("/")||href.startsWith("http")){
+                            if (href.startsWith("/") || href.startsWith("http")) {
                                 try {
                                     //System.out.println(href);
                                     e.adicionaNovaPagina(new URLAddress(href, depthFilho));
@@ -71,18 +72,19 @@ public class PageFetcher implements Runnable {
     @Override
     public void run() {
         while (!e.finalizouColeta()) {
-           //System.out.println("QTD: "+e.paginas+" PF: "+Thread.currentThread().getId());
-           // e.exibe();
+            // e.exibe();
             URLAddress url = e.getURL();
-           // System.out.println(url);
+            System.out.println("QTD: " + e.paginas + " PF: " + Thread.currentThread().getId() + " URL: " + url.toString());
+            // System.out.println(url);
             Record record = e.getRecordAllowRobots(url);
             RobotExclusion re = new RobotExclusion();
             if (record == null) {
                 String aux;
-                if(!url.getDomain().startsWith("http"))
+                if (!url.getDomain().startsWith("http")) {
                     aux = "https://" + url.getDomain() + "/robots.txt";
-                else
+                } else {
                     aux = url.getDomain() + "/robots.txt";
+                }
                 try {
                     record = re.get(new URL(aux), "JAEbot");
                 } catch (MalformedURLException ex) {
@@ -100,14 +102,14 @@ public class PageFetcher implements Runnable {
                     } catch (IOException ex) {
                         Logger.getLogger(PageFetcher.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    if(inputStream!=null){
-                    try {
-                        
+                    if (inputStream != null) {
+                        try {
+
                             html = ColetorUtil.consumeStream(inputStream);
-                    } catch (IOException ex) {
-                        Logger.getLogger(PageFetcher.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    encontraLinks(html, url.getDomain(), url.getDepth());
+                        } catch (IOException ex) {
+                            Logger.getLogger(PageFetcher.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        encontraLinks(html, url.getDomain(), url.getDepth());
                     }
                 }
             }
