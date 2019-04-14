@@ -1,16 +1,14 @@
-# Coletor de Proposito Geral
+# JAEbot
+JAEbot é um coletor desenvolvido na matéria Recuperação de Informação, no CEFET-MG, com a finalidade de estudar e aprender a arquitetura de um coletor simples para Web.
 
-## Objetivo
+## Objetivo do trabalho
 Implementar um coletor multithread de proposito geral e realizar uma análise do impacto dos parâmetros deste coletor.
 
-## Requisitos do coletor
-* Obedecer os protocolos de exclusão de robôs
-* Coletar no máximo 500 paginas
-* Acessar servidor de 30 em 30 segundos
-* Coletar somente até uma produndidade 4
-
-## User Agent
-JAEbot é um coletor desenvolvido na matéria Recuperação de Informação, no CEFET-MG, com o objetivo de estudar e aprender a arquitetura de um coletor simples para Web.
+## Especificação
+* Obedece os protocolos de exclusão de robôs
+* Coleta no máximo 500 paginas
+* Acessa servidor de 30 em 30 segundos
+* Coleta somente até uma produndidade 4
 
 ## Desenvolvedores
 * Ana Paula
