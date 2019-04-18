@@ -1,4 +1,4 @@
-#JAEbot
+# JAEbot
 JAEbot é o nome do User Agent do coletor desenvolvido na matéria Recuperação de Informação, no CEFET-MG, com a finalidade de estudar e aprender a arquitetura de um coletor simples para Web.
 
 ## Funcionamento do coletor
