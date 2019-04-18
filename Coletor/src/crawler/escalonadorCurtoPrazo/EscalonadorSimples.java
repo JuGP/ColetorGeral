@@ -23,12 +23,10 @@ public class EscalonadorSimples implements Escalonador {
 
     @Override
     public synchronized URLAddress getURL() {
+        //exibe();
         if (!finalizouColeta()) {
             URLAddress url = null;
             Servidor s = null;
-
-            //System.out.println("---------------------------------------------------------------------------------------------------------");
-            //System.out.println("COLETANDO PAGINA:");
             do {
                 for (Servidor key : hashServer.keySet()) {
                     LinkedList<URLAddress> value = hashServer.get(key);
@@ -43,8 +41,6 @@ public class EscalonadorSimples implements Escalonador {
                     url = value.removeFirst();
                     countFetchedPage();
                     s.acessadoAgora();
-                    //System.out.println("\tCOLETANDO URL "+url.toString());
-                    //exibe();
                     if (hashServer.get(s).isEmpty()) {
                         hashServer.remove(s);
                     }
@@ -68,16 +64,10 @@ public class EscalonadorSimples implements Escalonador {
     public synchronized boolean adicionaNovaPagina(URLAddress urlAdd) {
         LinkedList<URLAddress> aux = new LinkedList<URLAddress>();
         Servidor servidor = new Servidor(urlAdd.getDomain());
-        //System.out.println("---------------------------------------------------------------------------------------------------------");
-        //System.out.println("ADICIONANDO PAGINA:");
         if (descobertos.contains(urlAdd.toString())) {
-            //System.out.println("\tURLS "+urlAdd.toString()+" JÁ COLETADA");
-            //exibe();
             return false;
         }
         if (urlAdd.getDepth() >= PROFUNDIDADE) {
-            //System.out.println("\tPRODUNFUNDIDADE DA URL "+urlAdd.toString()+" JÁ ATINGIDA");
-            //exibe();
             return false;
         }
         if (hashServer.containsKey(servidor)) {
@@ -86,18 +76,14 @@ public class EscalonadorSimples implements Escalonador {
             aux.add(urlAdd);
         } else {
             descobertos.add(urlAdd.toString());
-            //descobertos.add(servidor.getNome());
             aux.add(urlAdd);
             hashServer.put(servidor, aux);
         }
-        //System.out.println("\tURL "+urlAdd.toString()+" ADICIONADA");
-        //exibe();
         return true;
     }
 
     @Override
     public Record getRecordAllowRobots(URLAddress url) {
-        //System.out.println(url.getDomain());
         Servidor servidor = new Servidor(url.getDomain());
         if (robotsServidor.containsKey(servidor)) {
             return robotsServidor.get(servidor);

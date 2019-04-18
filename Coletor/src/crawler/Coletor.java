@@ -8,7 +8,6 @@ import org.apache.log4j.BasicConfigurator;
 public class Coletor {
 
     public static void main(String[] args) throws MalformedURLException, UnknownHostException {
-        // BasicConfigurator.configure();
         EscalonadorSimples e = new EscalonadorSimples();
 
         URLAddress url1 = new URLAddress("https://edition.cnn.com/", 1);
@@ -23,14 +22,11 @@ public class Coletor {
         e.adicionaNovaPagina(url4);
         e.adicionaNovaPagina(url5);
         e.adicionaNovaPagina(url6);
-        long inicio = System.currentTimeMillis();
-        int n = 1; // Number of threads 
+        
+        int n = 10; // Numero de threads
         for (int i = 0; i < n; i++) {
             Thread object = new Thread(new PageFetcher(e));
             object.start();
         }
-        long fim = System.currentTimeMillis();
-        long tempo = fim - inicio;
-        //System.out.println("TEMPO :"+tempo);
     }
 }

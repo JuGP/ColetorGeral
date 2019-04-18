@@ -41,7 +41,6 @@ public class PageFetcher implements Runnable {
                     String tagName = tag.getName();
                     if ("a".equals(tagName)) {
                         String href = tag.getAttributeByName("href");
-                        //System.out.println(href);
                         int depthFilho = 1;
                         if (href != null) {
 
@@ -50,11 +49,8 @@ public class PageFetcher implements Runnable {
                                 depthFilho = profundidade + 1;
 
                             }
-
-                            //if (!(href.startsWith("javascript:") || href.equals("") || href.equals(dom + "/") || href.startsWith("#"))) {
                             if (href.startsWith("/") || href.startsWith("http")) {
                                 try {
-                                    //System.out.println(href);
                                     e.adicionaNovaPagina(new URLAddress(href, depthFilho));
                                 } catch (MalformedURLException ex) {
 
@@ -72,10 +68,8 @@ public class PageFetcher implements Runnable {
     @Override
     public void run() {
         while (!e.finalizouColeta()) {
-            // e.exibe();
             URLAddress url = e.getURL();
-            System.out.println("QTD: " + e.paginas + " PF: " + Thread.currentThread().getId() + " URL: " + url.toString());
-            // System.out.println(url);
+            System.out.println("QTD: " + e.paginas +" URL: " + url.toString());
             Record record = e.getRecordAllowRobots(url);
             RobotExclusion re = new RobotExclusion();
             if (record == null) {
