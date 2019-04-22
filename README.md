@@ -28,7 +28,7 @@ Foram disponibilizadas as seguintes URL’s sementes:
 As coletas foram realizadas no período de 18/03 a 22/04.
 
 ## Desenvolvedores
-* Ana Paula Victoy ([AnaVictoy](https://github.com/AnaVictoy))
+* Ana Paula Victoy ([AnaVictoy](https://github.com/AnaVictoy)) anavictoy11@gmail.com
 * Estevão Duarte([jaguarsurf](https://github.com/jaguarsurf))
 * Juliane Guedes ([JuGP](https://github.com/JuGP))
 
